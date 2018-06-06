@@ -47,17 +47,18 @@ import okhttp3.Response;
 public class MainActivity extends AppCompatActivity {
     TextView tv = null,tvVal = null;
     String sentID= null, location = "";
-    Double currentLat = 0.0, currentLong = 0.0;
+    Double currentLat = 0.0;
+    Double currentLong = 0.0;
     RadioGroup radioGroup = null;
     EditText editText = null;
     Button btnAceptar = null, btnDenegar=null, btnVal=null, btnSendFeed=null;
     public static final String FCM_MESSAGE_URL = "https://fcm.googleapis.com/fcm/send";
     OkHttpClient mClient = new OkHttpClient();
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-
+    public static String testToken="";
     String token = null;
     String thisAppToken="";
-    String UID = "", testToken="";
+    String UID = "";
     int value = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +69,8 @@ public class MainActivity extends AppCompatActivity {
         processExtraData();
         thisAppToken=FirebaseInstanceId.getInstance().getToken().toString();
         writeDB(thisAppToken);
-        //getCityLocation();
+        dbReadLocation();
+        getCityLocation();
         Log.d("TAG", location);
     }
 
@@ -103,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
             String sMensaje = b.getString("theMessage");
             sentID = b.getString("UID");
             tv.setText(sMensaje);
+
         }
     }
 
@@ -130,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
         radioGroup.setVisibility(View.INVISIBLE);
         btnDenegar.setVisibility(View.INVISIBLE);
         btnAceptar.setVisibility(View.INVISIBLE);
+        btnVal.setEnabled(false);
     }
 
     public void recieve (View v){
@@ -320,6 +324,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getCityLocation(){
+        System.out.println(currentLong);
         Geocoder gcd = new Geocoder(getApplicationContext(), Locale.getDefault());
         try {
             List<Address> addresses = gcd.getFromLocation(currentLat,currentLong, 1);
@@ -330,30 +335,42 @@ public class MainActivity extends AppCompatActivity {
         }catch(IOException ioe){
             Log.d("error",ioe.getMessage().toString());
         }
+        tv.setText(tv.getText().toString() + location);
     }
     public void dbReadLocation(){
+        dbReadLatitude();
+        dbReadLongitude();
+    }
+
+    private void dbReadLongitude() {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("locations");
+        ref.child("uGhsJjEC1CS44vwdoo1PNpR4akY2").child("currentLongitude").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Double longi = (Double)dataSnapshot.getValue(Double.class);
+                currentLong = longi;
+                System.out.println(currentLong);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
+    }
+
+    private void dbReadLatitude() {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("locations");
         ref.child("uGhsJjEC1CS44vwdoo1PNpR4akY2").child("currentLatitude").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Double lat = dataSnapshot.getValue(Double.class);
+                Double lat = (Double)dataSnapshot.getValue(Double.class);
                 currentLat = lat;
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         });
-        ref.child("uGhsJjEC1CS44vwdoo1PNpR4akY2").child("currentLongitude").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Double longi = dataSnapshot.getValue(Double.class);
-                currentLong = longi;
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {}
-        });
     }
+
     public void sendTest(View v){
         String message = "Espero que funciones por dios";
         String id = generateMessageId();
@@ -370,8 +387,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void dbReadUID() {
+        String ID = "nashexpi@gmail.com";
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("email");
-        reference.child(TransformMail.transformMail("nashexpi@gmail.com")).addListenerForSingleValueEvent(new ValueEventListener() {
+        reference.child(TransformMail.transformMail(ID)).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String readUID = dataSnapshot.getValue(String.class);
@@ -381,17 +399,22 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         });
+
     }
     private void dbReadToken(){
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Token");
         Log.d("debug","UID: " + UID);
         String id = UID.toString();
         System.out.println(id);
-        ref.child("34bZ12Mw2WVkWxbcbm7qrVGow3d2").addListenerForSingleValueEvent(new ValueEventListener() {
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String token = dataSnapshot.getValue(String.class);
-                testToken = token;
+                Iterable<DataSnapshot> it = dataSnapshot.getChildren();
+                for (DataSnapshot child: it) {
+                    if(child.getKey().equalsIgnoreCase(UID)){
+                        testToken = (String)child.getValue();
+                    }
+                }
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {}
