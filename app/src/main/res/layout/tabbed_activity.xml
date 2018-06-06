@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:layout_editor_absoluteY="81dp">
+
+    <TabHost
+        android:id="@+id/tabHost"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/Valoracion"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/holo_blue_bright"
+                    android:orientation="vertical">
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <Button
+                            android:id="@+id/btnConfirm"
+                            style="@style/Widget.AppCompat.Button.Colored"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:layout_marginLeft="14dp"
+                            android:layout_marginStart="14dp"
+                            android:layout_marginTop="16dp"
+                            android:onClick="startVal"
+                            android:text="Confirme que ha llegado su pedido"
+                            android:textAlignment="center"
+                            app:layout_constraintBottom_toTopOf="@+id/tvVal"
+                            app:layout_constraintStart_toStartOf="@+id/tvVal"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvVal"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginBottom="19dp"
+                            android:layout_marginEnd="34dp"
+                            android:layout_marginLeft="34dp"
+                            android:layout_marginRight="34dp"
+                            android:layout_marginStart="34dp"
+                            android:text="VALORE DEL 1 AL 5 LA CALIDAD DEL ENVÍO"
+                            android:textAlignment="center"
+                            android:textSize="18dp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toTopOf="@+id/rgPunt"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/btnConfirm" />
+
+                        <RadioGroup
+                            android:id="@+id/rgPunt"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_marginBottom="35dp"
+                            android:layout_marginEnd="58dp"
+                            android:layout_marginLeft="58dp"
+                            android:layout_marginRight="58dp"
+                            android:layout_marginStart="58dp"
+                            android:orientation="horizontal"
+                            app:layout_constraintBottom_toTopOf="@+id/etFeed"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tvVal">
+
+                            <RadioButton
+                                android:id="@+id/rb1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="1"
+                                tools:layout_editor_absoluteX="39dp"
+                                tools:layout_editor_absoluteY="140dp" />
+
+                            <RadioButton
+                                android:id="@+id/rb2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="2"
+                                tools:layout_editor_absoluteX="106dp"
+                                tools:layout_editor_absoluteY="140dp" />
+
+                            <RadioButton
+                                android:id="@+id/rb3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="3"
+                                tools:layout_editor_absoluteX="172dp"
+                                tools:layout_editor_absoluteY="140dp" />
+
+                            <RadioButton
+                                android:id="@+id/rb4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="4"
+                                tools:layout_editor_absoluteX="243dp"
+                                tools:layout_editor_absoluteY="140dp" />
+
+                            <RadioButton
+                                android:id="@+id/rb5"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="5"
+                                tools:layout_editor_absoluteX="311dp"
+                                tools:layout_editor_absoluteY="140dp" />
+
+                        </RadioGroup>
+
+                        <EditText
+                            android:id="@+id/etFeed"
+                            android:layout_width="0dp"
+                            android:layout_height="150dp"
+                            android:layout_marginBottom="15dp"
+                            android:layout_marginEnd="35dp"
+                            android:layout_marginLeft="35dp"
+                            android:layout_marginRight="35dp"
+                            android:layout_marginStart="35dp"
+                            android:ems="10"
+                            android:gravity="top"
+                            android:hint="Escriba, si desea, un feedback más detallado"
+                            android:inputType="textMultiLine"
+                            app:layout_constraintBottom_toTopOf="@+id/btnFeed"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/rgPunt" />
+
+                        <Button
+                            android:id="@+id/btnFeed"
+                            style="@style/Widget.AppCompat.Button.Colored"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:layout_marginEnd="98dp"
+                            android:layout_marginLeft="106dp"
+                            android:layout_marginRight="98dp"
+                            android:layout_marginStart="106dp"
+                            android:onClick="sendFeedback"
+                            android:text="ENVIAR FEEDBACK"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="@+id/etFeed"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/etFeed" />
+                    </android.support.constraint.ConstraintLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/Mensajería"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/holo_blue_bright"
+                    android:orientation="vertical">
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layout_constraintBottom_toBottomOf="@+id/button4"
+                        app:layout_constraintTop_toBottomOf="@+id/button4">
+
+                        <TextView
+                            android:id="@+id/tvMensaje"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginBottom="62dp"
+                            android:layout_marginEnd="21dp"
+                            android:layout_marginStart="21dp"
+                            android:layout_marginTop="43dp"
+                            android:text="SU PAQUETE SIGUE EN ENVÍO"
+                            android:textAlignment="center"
+                            android:textSize="30dp"
+                            app:layout_constraintBottom_toTopOf="@+id/imgLogo"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <Button
+                            android:id="@+id/btnRecieve"
+                            style="@style/Widget.AppCompat.Button.Colored"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginBottom="23dp"
+                            android:layout_marginEnd="23dp"
+                            android:layout_marginStart="23dp"
+                            android:layout_marginTop="25dp"
+                            android:onClick="recieve"
+                            android:text="PUEDO RECIBIRLO"
+                            android:visibility="invisible"
+                            app:layout_constraintBottom_toTopOf="@+id/btnDeny"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tvMensaje" />
+
+                        <Button
+                            android:id="@+id/btnDeny"
+                            style="@style/Widget.AppCompat.Button.Colored"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginBottom="117dp"
+                            android:layout_marginEnd="23dp"
+                            android:layout_marginStart="23dp"
+                            android:onClick="notRecieve"
+                            android:text="NO PUEDO RECIBIRLO"
+                            android:visibility="invisible"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/btnRecieve" />
+
+                        <ImageView
+                            android:id="@+id/imgLogo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="116dp"
+                            android:layout_marginEnd="28dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tvMensaje"
+                            app:srcCompat="@drawable/firebase_lockup_400" />
+
+                        <Button
+                            android:id="@+id/btnSend"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="42dp"
+                            android:text="sendTest"
+                            android:onClick="sendTest"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="@+id/imgLogo"
+                            app:layout_constraintStart_toStartOf="@+id/imgLogo" />
+                    </android.support.constraint.ConstraintLayout>
+
+                </LinearLayout>
+
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>
+</android.support.constraint.ConstraintLayout>
